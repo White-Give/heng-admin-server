@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { LoginDto } from './dto';
+import { LoginDto } from './dto/index';
 import { SUCCESS_CODE } from 'src/utils/result';
 import { AxiosService } from 'src/module/axios/axios.service';
 import { UserService } from '../system/user/user.service';
@@ -36,7 +36,7 @@ export class MainService {
     const loginRes = await this.userService.userLogin(user, loginInfo);
     loginInfo.status = loginRes.code === SUCCESS_CODE ? '0' : '1';
     loginInfo.msg = loginRes.msg;
-    this.logsService.create(loginInfo);
+    this.logsService.create({ ...loginInfo, type: 'login' });
     return loginRes;
   }
 }

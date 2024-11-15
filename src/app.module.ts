@@ -22,6 +22,8 @@ import { ConfigModule } from '@nestjs/config';
 // 我的所有entity.ts都在放在src/entity这个目录下
 
 import { UserModule } from './module/system/user/user.module';
+import { MainModule } from './module/main/main.module';
+import { LogsModule } from './module/monitor/mainlog/logs.module';
 
 @Module({
   imports: [
@@ -33,6 +35,8 @@ import { UserModule } from './module/system/user/user.module';
     }),
     // 数据库
     UserModule,
+    MainModule,
+    LogsModule,
   ],
   controllers: [],
   providers: [],

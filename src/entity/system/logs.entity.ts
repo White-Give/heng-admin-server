@@ -6,12 +6,22 @@ import {
 } from 'typeorm';
 import { BaseEntity } from '../base.entity';
 
-@Entity('sys_infor', {
+@Entity('logs_system', {
   comment: '记录日志',
 })
 export class logsEntity extends BaseEntity {
-  @PrimaryGeneratedColumn({ type: 'int', name: 'info_id', comment: '访问ID' })
+  @PrimaryGeneratedColumn({ type: 'int', name: 'info_id', comment: '日志ID' })
   public infoId: number;
+
+  //日志类型
+  @Column({
+    type: 'varchar',
+    name: 'type',
+    length: 20,
+    default: '',
+    comment: '日志类型',
+  })
+  public type: string;
 
   @Column({
     type: 'varchar',
@@ -42,10 +52,10 @@ export class logsEntity extends BaseEntity {
 
   @CreateDateColumn({
     type: 'timestamp',
-    name: 'login_time',
-    comment: '访问时间',
+    name: 'logs_time',
+    comment: '录入时间',
   })
-  public loginTime: Date;
+  public logsTime: Date;
 
   //提示消息
   @Column({

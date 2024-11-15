@@ -5,7 +5,7 @@ import { LoginDto } from 'src/module/main/dto';
 import { ResultData } from 'src/utils/result';
 import { JwtService } from '@nestjs/jwt';
 import { GenerateUUID } from 'src/utils';
-import { UserEntity } from 'src/entity/user/user.entity';
+import { UserEntity } from 'src/entity/system/user.entity';
 import { GetNowDate } from 'src/utils/index';
 import { DelFlagEnum } from 'src/common/enum/index';
 import { CreateUserDto } from './dto/index';
