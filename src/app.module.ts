@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import configuration from './config/index';
 import { ConfigModule } from '@nestjs/config';
+import { join } from 'path';
 // entities字段的作用是根据提供的路径字符串，在运行的时候查找对应路径下的entity文件。
 
 // 首先，我建议最好直接在使用 TypeORM.forRoot 来引入配置，就像下面一样：
@@ -24,7 +25,10 @@ import { ConfigModule } from '@nestjs/config';
 import { UserModule } from './module/system/user/user.module';
 import { MainModule } from './module/main/main.module';
 import { LogsModule } from './module/monitor/mainlog/logs.module';
+import { StationGameModule } from './module/station/game/game.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
+const entitiesPaths = [join(__dirname, '**', '*.entity.{ts,js}')];
 @Module({
   imports: [
     // 配置模块
@@ -33,10 +37,25 @@ import { LogsModule } from './module/monitor/mainlog/logs.module';
       load: [...configuration],
       isGlobal: true,
     }),
+    TypeOrmModule.forRootAsync({
+      useFactory: () => ({
+        type: 'mysql',
+        host: 'localhost',
+        port: 3306,
+        username: 'root',
+        password: 'root',
+        database: 'dbbase',
+        timezone: '+08:00',
+        entities: entitiesPaths,
+        synchronize: false,
+        logging: true,
+      }),
+    }),
     // 数据库
     UserModule,
     MainModule,
     LogsModule,
+    StationGameModule,
   ],
   controllers: [],
   providers: [],

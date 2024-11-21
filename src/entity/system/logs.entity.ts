@@ -10,8 +10,8 @@ import { BaseEntity } from '../base.entity';
   comment: '记录日志',
 })
 export class logsEntity extends BaseEntity {
-  @PrimaryGeneratedColumn({ type: 'int', name: 'info_id', comment: '日志ID' })
-  public infoId: number;
+  @PrimaryGeneratedColumn({ type: 'int', name: 'log_id', comment: '日志ID' })
+  public logId: number;
 
   //日志类型
   @Column({

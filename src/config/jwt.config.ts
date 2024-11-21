@@ -1,8 +1,8 @@
 // jwt
 export default () => ({
   jwt: {
-    secretkey: 'you_secretkey',
-    expiresin: '1h',
-    refreshExpiresIn: '2h',
+    secretkey: 'heng_admin_server',
+    expiresin: '1d',
+    refreshExpiresIn: '2d',
   },
 });

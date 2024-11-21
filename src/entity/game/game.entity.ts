@@ -35,6 +35,14 @@ export class GameEntity extends BaseEntity {
 
   @Column({
     type: 'varchar',
+    name: 'game_data',
+    default: '',
+    comment: '游戏详情',
+  })
+  public gameData: string;
+
+  @Column({
+    type: 'varchar',
     name: 'game_icon',
     default: '',
     comment: '游戏图标',
@@ -43,16 +51,17 @@ export class GameEntity extends BaseEntity {
 
   @Column({
     type: 'varchar',
-    name: 'game_time',
+    name: 'game_create_time',
     default: '',
-    comment: '游戏时间',
+    comment: '游戏发售时间',
   })
-  public gameTime: string;
+  public gameCreateTime: string;
 
+  // 0 未上架 1 上架中
   @Column({
     type: 'varchar',
     name: 'game_status',
-    default: '',
+    default: '1',
     comment: '游戏状态',
   })
   public gameStatus: string;

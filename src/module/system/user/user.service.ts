@@ -16,7 +16,7 @@ export class UserService {
   constructor(
     private readonly jwtService: JwtService,
     @InjectRepository(UserEntity)
-    private readonly userRepo: Repository<UserEntity>,
+    private readonly userEntityRep: Repository<UserEntity>,
   ) {}
 
   /**
@@ -39,7 +39,7 @@ export class UserService {
    * @returns
    */
   async userLogin(user: LoginDto, clientInfo: any) {
-    const data = await this.userRepo.findOne({
+    const data = await this.userEntityRep.findOne({
       where: { userName: user.username },
       select: ['userId', 'password'],
     });
@@ -47,7 +47,7 @@ export class UserService {
       return ResultData.fail(500, `帐号或密码错误`);
     }
 
-    await this.userRepo.update(
+    await this.userEntityRep.update(
       { userId: data.userId },
       { loginDate: GetNowDate(), loginIp: clientInfo.ipaddr },
     );
@@ -66,7 +66,7 @@ export class UserService {
    * @returns
    */
   async getUserInfo(userId: string) {
-    const entity = this.userRepo.createQueryBuilder('user');
+    const entity = this.userEntityRep.createQueryBuilder('user');
     entity.where({ userId: userId, delFlag: DelFlagEnum.NORMAL });
     const data: any = await entity.getOne();
     return ResultData.ok(data);
