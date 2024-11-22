@@ -6,7 +6,7 @@ import { LoginDto } from './dto';
 export class MainController {
   constructor(private readonly mainService: MainService) {}
 
-  @Post('/login')
+  @Post('login')
   @HttpCode(200)
   login(@Body() user: LoginDto, @Request() req) {
     const clientInfo = {

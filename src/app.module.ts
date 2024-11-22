@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import configuration from './config/index';
 import { ConfigModule } from '@nestjs/config';
 import { join } from 'path';
@@ -24,9 +25,9 @@ import { join } from 'path';
 
 import { UserModule } from './module/system/user/user.module';
 import { MainModule } from './module/main/main.module';
+import { AxiosModule } from './module/axios/axios.module';
 import { LogsModule } from './module/monitor/mainlog/logs.module';
 import { StationGameModule } from './module/station/game/game.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
 
 const entitiesPaths = [join(__dirname, '**', '*.entity.{ts,js}')];
 @Module({
@@ -51,9 +52,9 @@ const entitiesPaths = [join(__dirname, '**', '*.entity.{ts,js}')];
         logging: true,
       }),
     }),
-    // 数据库
-    UserModule,
     MainModule,
+    AxiosModule,
+    UserModule,
     LogsModule,
     StationGameModule,
   ],

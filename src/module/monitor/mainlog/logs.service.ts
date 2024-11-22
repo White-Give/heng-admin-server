@@ -7,9 +7,9 @@ import { Repository } from 'typeorm';
 export class LogsService {
   constructor(
     @InjectRepository(logsEntity)
-    private readonly logsRepo: Repository<logsEntity>,
+    private readonly logsEntityRep: Repository<logsEntity>,
   ) {}
   async create(createLogs: any) {
-    return await this.logsRepo.save(createLogs);
+    return await this.logsEntityRep.save(createLogs);
   }
 }

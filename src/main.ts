@@ -1,4 +1,4 @@
-import { NestFactory } from '@nestjs/core';
+import { NestFactory, PartialGraphHost } from '@nestjs/core';
 import { AppModule } from './app.module';
 import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
@@ -6,16 +6,19 @@ import { ValidationPipe } from '@nestjs/common';
 import { mw as requestIpMw } from 'request-ip';
 
 import { HttpExceptionsFilter } from './common/filters/http-exceptions-filter';
+import * as fs from 'fs'; // 导入 fs 模块
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     cors: true, // 开启跨域访问
+    snapshot: true,
+    abortOnError: false, // <--- THIS
   });
 
   // 设置访问频率
   app.use(
     rateLimit({
-      windowMs: 15 * 60 * 1000, // 15分钟
+      windowMs: 5 * 60 * 1000, // 5分钟
       max: 1000, // 限制15分钟内最多只能访问1000次
     }),
   );
@@ -45,4 +48,7 @@ async function bootstrap() {
     `http://localhost:${port}/`,
   );
 }
-bootstrap();
+bootstrap().catch((err: any) => {
+  fs.writeFileSync('graph.json', PartialGraphHost.toString() ?? err);
+  process.exit(1);
+});

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { GameEntity } from 'src/entity/game/game.entity';
+import { GameEntity } from 'src/entity/station/game.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { GameListDto, CreateGameDto, UpdateGameDto } from './dto/index';
